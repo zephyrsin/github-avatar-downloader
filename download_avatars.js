@@ -3,8 +3,10 @@ var fs = require('fs');
 
 var GITHUB_USER = "zephyrsin";
 var GITHUB_TOKEN = "527676dda5bd7ff3fc8fe35eb21789b64bb40028";
-var repoOwner = "jquery";
-var repoName = "jquery";
+
+var user_input = process.argv.slice(2);
+var repoName = user_input[1];
+var repoOwner = user_input[0];
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
@@ -23,9 +25,9 @@ function getRepoContributors(repoOwner, repoName, cb) {
   	console.log('Response Status Code:', response.statusCode);
 	var parse = JSON.parse(body);
 	for (attribute in parse) {
-		var filepath = "C:\\Users\\YangLu\\workspace\\github-avatar-downloader\\";
+		var filepath = "C:\\Users\\YangLu\\workspace\\github-avatar-downloader\\avatars\\";
 		filepath += parse[attribute].login+".jpeg";
-		console.log(parse[attribute].avatar_url);
+		//console.log(parse[attribute].avatar_url);
 		downloadImageByURL(parse[attribute].avatar_url,filepath);
 	}
 	});
@@ -38,7 +40,7 @@ function downloadImageByURL(url, filePath) {
   }).pipe(fs.createWriteStream(filePath));
   }
 	
-getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors(repoOwner, repoName, function(err, result) {
   console.log("Errors:", err);
   console.log("Result:", result);
 });
