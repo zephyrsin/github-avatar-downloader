@@ -1,5 +1,6 @@
 avatars/
 #the tv show not the movie cuz that one sucks
+node_modules/
 
 # Logs
 logs
